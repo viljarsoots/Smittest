@@ -1,0 +1,18 @@
+Proovitöö kirjeldus ehk miks nii läks:)
+
+Esimese asjana täpsustan ära et ei ole praktiliselt 1,5 astat nii intensiivselt ühelegi päris probleemile otsa vaadanud.
+Lisaks käin iga päev ka 8-17 põhitööl.
+Mille tulemusel mõtlesin kohe ka lahenduse enda jaoks liiga raskeks.
+Nimelt üritasin esimese asjana teha kõik päringud korraga ja sinna kulus üle mõistuse palju aega.
+Kui olin märganud, et tegelikult nii ei pea ilmtingimatta olema sain päringud tehtud ja isegi overloaditud.
+Kui olin päringud posmaniga tööle saanud hakkasin mõtlema kuidas ma siis front-endi lahendan.
+Vaatasin algul üht oma Udemyga tehtud Angulari tööd ja mõistsin et selle söödavaks tegemine võtab vist liiga kaua.
+Siis vaatasin oma praktika projekti, mis oli lahendatud Reactiga ning selle modifitseerimise ma ka ette võtsin.
+Eile 22.12 õhtul mõtlesin et seda poleks ka tarvis olnud. oleks saanud ka lihtsa javascriptiga.
+Kuna teen asja vanale põhjale mis küll töötab kuid on uuendamatta mis ei ole kuigi ilus tegevus.
+Mis on olemas ja mis mitte.
+Saab teha päringuid mõlemast serverist.
+Saab ka otsida front endis eralti
+Aja broneerimine ei tööta sest API ei suuda JSONit lahti kodeerida.
+Puudub ka seadete tegemise plokk võin ainult arvata, et selle oleks pidanud kohe alguses genereerima.
+Siit saan teha ainult ühe järelduse õppida on mul veel palju ja tegelikult on hirmus kahju et nii pikk paus sisse on tulnud.
