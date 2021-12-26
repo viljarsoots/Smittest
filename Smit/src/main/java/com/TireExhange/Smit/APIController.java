@@ -26,7 +26,11 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -104,12 +108,19 @@ public class APIController {
 
     }
     @PutMapping(value = "/london/{id}",
-            produces = MediaType.APPLICATION_XML_VALUE)
-    public void bookTime(@PathVariable("id") String id, @RequestBody String jsonInput) throws JsonProcessingException {
+            produces = MediaType.TEXT_XML_VALUE)
+    public void bookTime(@PathVariable("id") String id, @RequestBody String jsonInput) throws IOException, XMLStreamException {
         String variable = String.format("/%s/book", id);
         ObjectMapper jsonMapper = new ObjectMapper();
         ContactInformation contactInformation = jsonMapper.readValue(jsonInput, ContactInformation.class);
+        StringWriter stringWriter = new StringWriter();
+        XMLOutputFactory xmlOutputFactory = XMLOutputFactory.newFactory();
+        XMLStreamWriter sw = xmlOutputFactory.createXMLStreamWriter(stringWriter);
         XmlMapper xmlMapper = new XmlMapper();
+        sw.writeStartDocument();
+        xmlMapper.writeValue(sw, contactInformation);
+        sw.writeEndElement();
+        sw.writeEndDocument();
         System.out.println(xmlMapper.writeValueAsString(contactInformation));
         restTemplate.put(url2 + variable, xmlMapper);
 
