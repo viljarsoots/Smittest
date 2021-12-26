@@ -38,14 +38,17 @@ export default class MainTable extends React.Component {
 
 		let { id} = e.target;
 		console.log("See Details for Id: " + id);
-		
+		let from = this.props.match.params.from;
+		let city = (from.length > 11)? "london/" : "manchester/";
+		console.log("City is " + city);
 		const options = {
             headers: { "Content-Type": "application/json", "Accept": "application/json" },    
         };
         let data = {
-            contactInformation: this.state.location
+            contactInformation: "location"
                     };
-        axios.put(echoPostUrl+"book/"+id, data, options)
+					console.log(data);
+        axios.put(echoPostUrl+city+id, data, options)
             .then((response) => {
                 console.log("response from echo server");   
             }).catch((exception) => {
@@ -65,7 +68,7 @@ export default class MainTable extends React.Component {
 	   }
 
 	   handelGet(event) {
-		   let from = this.props.match.params.from;
+		let from = this.props.match.params.from;
 		let dateToSend = (from.length > 11)? from.replace("&", "/") : from;
 		console.log(dateToSend);
         axios.get(mockDataUrl+dateToSend)

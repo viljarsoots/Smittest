@@ -7,7 +7,10 @@ import com.TireExhange.Smit.Helper.Transformer;
 import com.TireExhange.Smit.entity.ContactInformation;
 import com.TireExhange.Smit.entity.LondonTime;
 import com.TireExhange.Smit.entity.ManTime;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +47,7 @@ public class APIController {
 
     private final Logger logger = LoggerFactory.getLogger(APIController.class);
     private static String url = "http://localhost:9004/api/v1/tire-change-times";
-    private static String url2 = "http://localhost:9003/api/v1/tire-change-times/available?";
+    private static String url2 = "http://localhost:9003/api/v1/tire-change-times";
 
     @GetMapping(value = "/times/{from}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<TimeDto> getTimes(@PathVariable("from") String from) throws ParseException {
@@ -64,7 +67,7 @@ public class APIController {
     @GetMapping(value = "/times/{from}/{to}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<TimeDto> getTimes(@PathVariable("from") String from, @PathVariable("to") String to) {
         List<TimeDto> times = new ArrayList<>();
-        String variables = String.format("from=%s&until=%s", from, to);
+        String variables = String.format("/available?from=%s&until=%s", from, to);
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
@@ -91,16 +94,26 @@ public class APIController {
         }
         return times;
     }
-    @PutMapping(value = "/book/{id}",
+    @PutMapping(value = "/manchester/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes= MediaType.APPLICATION_JSON_VALUE)
-    public   void bookManTime(@PathVariable("id") int id, @RequestBody ContactInformationDto contactInformationDto){
+    public   void bookManTime(@PathVariable("id") int id, @RequestBody String contactInformation){
         String variable = String.format("/%s/book", id);
 
-        restTemplate.put(url + variable, transformer.contactInformationDtoToContactInfo(contactInformationDto));
+        restTemplate.put(url + variable, contactInformation);
 
     }
+    @PutMapping(value = "/london/{id}",
+            produces = MediaType.APPLICATION_XML_VALUE)
+    public void bookTime(@PathVariable("id") String id, @RequestBody String jsonInput) throws JsonProcessingException {
+        String variable = String.format("/%s/book", id);
+        ObjectMapper jsonMapper = new ObjectMapper();
+        ContactInformation contactInformation = jsonMapper.readValue(jsonInput, ContactInformation.class);
+        XmlMapper xmlMapper = new XmlMapper();
+        System.out.println(xmlMapper.writeValueAsString(contactInformation));
+        restTemplate.put(url2 + variable, xmlMapper);
 
+    }
 
 
 }
