@@ -3,9 +3,7 @@ import React from 'react';
 import './TopNavBar.css';
 
 export default class TopNavBar extends React.Component{
-    constructor(props){
-        super(props);
-    }
+    
     render(){
         return(
            

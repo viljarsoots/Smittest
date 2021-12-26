@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import SideNavBar from '../containers/SideNavBar.jsx';
 import TopNavBar from '../containers/TopNavBar.jsx';
 import MainTable from '../containers/MainTable.jsx';
@@ -10,9 +9,7 @@ import MainPage from '../containers/MainPage.jsx';
 
 
 export default class MasterLayout extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+    
     render() {
         return (
             <div className="page-wrapper">

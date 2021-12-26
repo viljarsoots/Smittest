@@ -1,2 +1,0 @@
-import SideNavBar from './components/containers/SideNavBar.jsx';
-import TopNavBar from './components/containers/TopNavBar.jsx';
